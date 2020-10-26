@@ -55,6 +55,22 @@ open class CDMarkdownTextView: UITextView {
         }
     }
 
+    open var codeBackground: UIColor = UIColor.codeBackgroundRed() {
+        didSet {
+            if let layoutManager = self.customLayoutManager {
+                layoutManager.codeBackground = codeBackground
+            }
+        }
+    }
+
+    open var syntaxBackground: UIColor = UIColor.syntaxBackgroundGray() {
+        didSet {
+            if let layoutManager = self.customLayoutManager {
+                layoutManager.syntaxBackground = syntaxBackground
+            }
+        }
+    }
+
     open override var attributedText: NSAttributedString! {
         get {
             return super.attributedText
