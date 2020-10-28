@@ -37,10 +37,41 @@ open class CDMarkdownLayoutManager: NSLayoutManager {
     open var codeBackground: UIColor = UIColor.codeBackgroundRed()
     open var syntaxBackground: UIColor = UIColor.syntaxBackgroundGray()
 
+    open var enableLeftLine: Bool = false
+    open var leftineColor: UIColor = UIColor(red: 0.878, green: 0.878, blue: 0.878, alpha: 1.0)
+    open var leftlineKeyColor: UIColor = UIColor(red: 0.878, green: 0.878, blue: 0.878, alpha: 1.0)
+    open var leftLineWidth: CGFloat = 3.0
+    open var leftLineSpaceWidth: CGFloat = 5.0
+
     override open func fillBackgroundRectArray(_ rectArray: UnsafePointer<CGRect>,
                                                count rectCount: Int,
                                                forCharacterRange charRange: NSRange,
                                                color: UIColor) {
+
+        if self.enableLeftLine == true && color.isEqualTo(otherColor: self.leftlineKeyColor) {
+            var minY: CGFloat = CGFloat.greatestFiniteMagnitude
+            var maxY: CGFloat = CGFloat.leastNormalMagnitude
+            for idx in 0 ..< rectCount {
+                minY = CGFloat.minimum(minY, rectArray[idx].minY)
+                maxY = CGFloat.maximum(maxY, rectArray[idx].maxY)
+            }
+
+            let headPos = self.location(forGlyphAt: charRange.location)
+            var currentX = CGFloat(5.0)
+
+            guard let ctx = UIGraphicsGetCurrentContext() else { return }
+            ctx.setFillColor(self.leftineColor.cgColor)
+            ctx.saveGState()
+
+            while currentX < headPos.x {
+                ctx.fill(CGRect(x: currentX, y: minY, width: self.leftLineWidth, height: maxY - minY))
+                currentX += self.leftLineWidth + self.leftLineSpaceWidth
+            }
+
+            ctx.restoreGState()
+
+            return
+        }
 
         var cornerRadius: CGFloat = 0
         if (self.roundCodeCorners == true && color.isEqualTo(otherColor: self.codeBackground)) ||

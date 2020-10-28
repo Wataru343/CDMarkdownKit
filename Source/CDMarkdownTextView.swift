@@ -71,6 +71,46 @@ open class CDMarkdownTextView: UITextView {
         }
     }
 
+    open var enableLeftLine: Bool = false {
+        didSet {
+            if let layoutManager = self.customLayoutManager {
+                layoutManager.enableLeftLine = enableLeftLine
+            }
+        }
+    }
+
+    open var leftineColor: UIColor = UIColor(red: 0.878, green: 0.878, blue: 0.878, alpha: 1.0) {
+        didSet {
+            if let layoutManager = self.customLayoutManager {
+                layoutManager.leftineColor = leftineColor
+            }
+        }
+    }
+
+    open var leftlineKeyColor: UIColor = UIColor(red: 0.878, green: 0.878, blue: 0.878, alpha: 1.0) {
+        didSet {
+            if let layoutManager = self.customLayoutManager {
+                layoutManager.leftlineKeyColor = leftlineKeyColor
+            }
+        }
+    }
+
+    open var leftLineWidth: CGFloat = 3.0 {
+        didSet {
+            if let layoutManager = self.customLayoutManager {
+                layoutManager.leftLineWidth = leftLineWidth
+            }
+        }
+    }
+
+    open var leftLineSpaceWidth: CGFloat = 3.0 {
+        didSet {
+            if let layoutManager = self.customLayoutManager {
+                layoutManager.leftLineSpaceWidth = leftLineSpaceWidth
+            }
+        }
+    }
+
     open override var attributedText: NSAttributedString! {
         get {
             return super.attributedText
