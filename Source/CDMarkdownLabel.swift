@@ -154,8 +154,8 @@ open class CDMarkdownLabel: UILabel {
         set {
             if self.customTextContainer != nil,
                 let layoutManager = self.customLayoutManager {
-                self.parseTextAndExtractURLRanges(newValue)
-                self.customTextStorage = NSTextStorage(attributedString: newValue)
+                self.parseTextAndExtractURLRanges(newValue ?? NSAttributedString())
+                self.customTextStorage = NSTextStorage(attributedString: newValue ?? NSAttributedString())
                 self.customTextStorage.addLayoutManager(layoutManager)
                 layoutManager.textStorage = self.customTextStorage
             }

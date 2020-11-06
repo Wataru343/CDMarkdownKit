@@ -116,7 +116,7 @@ open class CDMarkdownTextView: UITextView {
             return super.attributedText
         }
         set {
-            self.customTextStorage = NSTextStorage(attributedString: newValue)
+            self.customTextStorage = NSTextStorage(attributedString: newValue ?? NSAttributedString())
             if let layoutManager = self.customLayoutManager {
                 self.customTextStorage.addLayoutManager(layoutManager)
             }
