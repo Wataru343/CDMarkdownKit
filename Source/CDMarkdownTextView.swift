@@ -113,7 +113,7 @@ open class CDMarkdownTextView: UITextView {
 
     open override var attributedText: NSAttributedString! {
         get {
-            return super.attributedText
+            return self.customTextStorage.attributedSubstring(from: NSRange(location: 0, length: self.customTextStorage.length))
         }
         set {
             self.customTextStorage = NSTextStorage(attributedString: newValue ?? NSAttributedString())
